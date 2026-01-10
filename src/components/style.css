@@ -1,4 +1,5 @@
-td, th {
+td,
+th {
     border: 1px solid lightgrey;
 }
 
@@ -6,9 +7,13 @@ td, th {
     padding-top: 0px !important;
 }
 
-.kulmiInput{
+.kulmiInput {
     margin-top: 10px !important;
     height: 40px;
+}
+
+.kulmiTable {
+    text-align: center;
 }
 
 @media screen and (max-width: 540px) {
@@ -22,12 +27,11 @@ td, th {
     }
 
     .landingList {
-        max-height:150px;
+        max-height: 150px;
     }
 }
 
 @media screen and (min-width: 540px) {
-
     .landingList {
         max-height: 300px;
     }
@@ -35,7 +39,7 @@ td, th {
 
 @media screen and (min-width: 960px) {
     .landingList {
-        max-height: 450px
+        max-height: 450px;
     }
 }
 
@@ -44,7 +48,7 @@ td, th {
     display: flex !important;
     align-items: center !important;
     height: 40px;
-  }
+}
 
 .marked {
     background-color: lightgreen;
@@ -53,4 +57,3 @@ td, th {
 .textStart {
     text-align: start;
 }
-
