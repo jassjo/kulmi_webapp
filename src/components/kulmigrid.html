@@ -1,153 +1,191 @@
 <v-container>
-    <v-layout
-    justify-center
-    text-center
-    wrap
-    fluid
-    >  
-            <v-row>
-                <v-col cols="12" md="6">      
-                    <v-simple-table class="kulmiTable" single-select>
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th class="text-center">{{state.team1.sTeam}}</th>
-                                <th class="text-center">{{state.team2.sTeam}}</th>
-                                <th class="text-center">{{state.team1.sTeam}}</th>
-                                <th class="text-center">{{state.team2.sTeam}}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="color in colors" :key="color">
-                                <td class="kulmiTab">{{color}}</td>
-                                <td class="kulmiTab" v-on:click="onTableClick(color, 1)" :id="color + '1'">{{getPointsTeam1(color)}}</td>
-                                <td class="kulmiTab" v-on:click="onTableClick(color, 2)" :id="color + '2'">{{getPointsTeam2(color)}}</td>
-                                <td class="kulmiTab">{{getWiesTeam1ForLine(color)}}</td>
-                                <td class="kulmiTab">{{getWiesTeam2ForLine(color)}}</td>
-                            </tr>
-                        </tbody>
-                    </v-simple-table>
-                </v-col> 
-               
-                <v-col cols="12" md="6" class="pt-2">
-                        <v-container class="pt-zero" >
-                            <v-row cols="12" class="pt-zero" v-if="!showResult">
-                                <v-col cols="6" class="pt-zero"
-                                >
-                                    <v-row no-gutters >
-                                        <v-text-field
-                                            label="Punkte"
-                                            type="number"
-                                            class="mt-auto kulmiInput"
-                                            v-on:change=onWritePoints(true)
-                                            v-model=points1
-                                            @focus="$event.target.select()"
-                                        ></v-text-field>
-                                    </v-row>
-            
-                                    <v-row no-gutters>
-                                        <v-text-field
-                                            v-model=wies1
-                                            label="Wies"
-                                            type="number"
-                                            :rules="wiesRules"
-                                            class="mb-auto kulmiInput"
-                                            v-on:change=onWriteWies(true)
-                                             @focus="$event.target.select()"
-                                        ></v-text-field>
-                                    </v-row>
-            
-                                    <v-row no-gutters><v-checkbox 
-                                        v-model=stoeck1
-                                        label="Stöck"
-                                        class="shrink mb-auto kulmiInput"
-                                        v-on:change=onStoeckClicked(true)
-                                    ></v-checkbox></v-row>
-                                
-                                    <v-row no-gutters><v-checkbox
-                                        v-model=matsch1
-                                        class="shrink mt-auto mb-auto kulmiInput"
-                                        label="Matsch"
-                                        v-on:change=onMatschClicked(true)
-                                    ></v-checkbox></v-row>
-                                
-                                </v-col>
-            
-                                <v-col cols="6" class="pt-zero"
-                                >
-                                    <v-row no-gutters >
-                                        <v-text-field
-                                            v-model=points2
-                                            label="Punkte"
-                                            type="number"
-                                            class="mt-auto kulmiInput"
-                                            v-on:change=onWritePoints(false)
-                                            @focus="$event.target.select()"
-                                        ></v-text-field>
-                                    </v-row>
-            
-                                    <v-row no-gutters>
-                                        <v-text-field
-                                            v-model=wies2
-                                            label="Wies"
-                                            type="number"
-                                            :rules="wiesRules"
-                                            class="mb-auto kulmiInput"
-                                            v-on:change=onWriteWies(false)
-                                            @focus="$event.target.select()"
-                                        ></v-text-field>
-                                    </v-row>
-            
-                                    <v-row no-gutters><v-checkbox
-                                        v-model=stoeck2
-                                        label="Stöck"
-                                        class="shrink mb-auto kulmiInput"
-                                        v-on:change=onStoeckClicked(false)
-                                    ></v-checkbox></v-row>
-                                
-                                    <v-row no-gutters><v-checkbox
-                                        v-model=matsch2
-                                        class="shrink mt-auto mb-auto kulmiInput"
-                                        label="Matsch"
-                                        v-on:change=onMatschClicked(false)
-                                    ></v-checkbox></v-row>
-                                    
-                                </v-col>
-                            </v-row>
+    <v-row justify-center text-center wrap fluid align="start">
+        <v-col cols="12" md="6">
+            <v-table class="kulmiTable" single-select>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th class="text-center">{{state.team1.sTeam}}</th>
+                        <th class="text-center">{{state.team2.sTeam}}</th>
+                        <th class="text-center">{{state.team1.sTeam}}</th>
+                        <th class="text-center">{{state.team2.sTeam}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="color in colors" :key="color">
+                        <td class="kulmiTab">{{color}}</td>
+                        <td
+                            class="kulmiTab"
+                            v-on:click="onTableClick(color, 1)"
+                            :id="color + '1'"
+                        >
+                            {{getPointsTeam1(color)}}
+                        </td>
+                        <td
+                            class="kulmiTab"
+                            v-on:click="onTableClick(color, 2)"
+                            :id="color + '2'"
+                        >
+                            {{getPointsTeam2(color)}}
+                        </td>
+                        <td class="kulmiTab">{{getWiesTeam1ForLine(color)}}</td>
+                        <td class="kulmiTab">{{getWiesTeam2ForLine(color)}}</td>
+                    </tr>
+                </tbody>
+            </v-table>
+        </v-col>
 
-                            
+        <v-col cols="12" md="6" class="pt-2">
+            <v-container class="pa-0">
+                <v-row cols="12" class="pt-zero" v-if="!showResult">
+                    <v-col cols="6" class="pt-zero">
+                        <v-row no-gutters>
+                            <v-text-field
+                                label="Punkte"
+                                type="number"
+                                class="mt-auto kulmiInput"
+                                v-on:change="onWritePoints(true)"
+                                v-model="points1"
+                                @focus="$event.target.select()"
+                            ></v-text-field>
+                        </v-row>
 
-                            <v-row no-gutters justify="space-between" v-if="!showResult">
-                                {{selectedWithTeams()}}
-                                <v-btn small color="primary" v-on:click=enterRound()>Eintragen</v-btn>
-                                <v-btn small color="error" v-on:click=deleteRound()>Löschen</v-btn>
-                                <v-btn small color="orange" v-on:click=goBack()><v-icon color="white">mdi-arrow-left</v-icon></v-btn>
-                            </v-row>
-                            <v-row v-if="!showResult" no-gutters justify="center"><v-btn small class="mt-2" color="success" v-if="state.rounds.length == 18" v-on:click="showResult = true">Zum Ergebnis</v-btn></v-row>
-                            
-                            <v-card raised shaped>
-                                <v-row no-gutters v-if="showResult" class="pt-2">
-                                    <v-col cols="6" class="pa-5" no-gutters>
-                                        <h4 class="textStart">{{state.team1.player1}}</h4>
-                                        <h4 class="textStart">{{state.team1.player2}}</h4>
-                                        <p class="textStart pt-1">Punkte: {{calcResult().points1}}</br>
-                                        Wies: {{calcResult().wies1}}</br>
-                                        Gesamt: {{calcResult().total1}}</p>
-                                    </v-col>
-                                    <v-col cols="6" class="pa-5" no-gutters>
-                                        <h4 class="textStart">{{state.team2.player1}}</h4>
-                                        <h4 class="textStart">{{state.team2.player2}}</h4>
-                                        <p class="textStart pt-1">Punkte: {{calcResult().points2}}</br>
-                                        Wies: {{calcResult().wies2}}</br>
-                                        Gesamt: {{calcResult().total2}}</p>
-                                    </v-col>
-                                    <v-col cols="12" class="pa-4" >
-                                        <v-btn small class="mt-2" color="primary" v-on:click=startNewGame()>Revanche</v-btn>
-                                    </v-col>
-                                </v-row>
-                            </v-card>
-                        </v-container>
-                </v-col> 
-        </v-row>
-    </v-layout>
+                        <v-row no-gutters>
+                            <v-text-field
+                                v-model="wies1"
+                                label="Wies"
+                                type="number"
+                                :rules="wiesRules"
+                                class="mb-auto kulmiInput"
+                                v-on:change="onWriteWies(true)"
+                                @focus="$event.target.select()"
+                            ></v-text-field>
+                        </v-row>
+
+                        <v-row no-gutters
+                            ><v-checkbox
+                                v-model="stoeck1"
+                                label="Stöck"
+                                class="shrink mb-auto kulmiInput"
+                                v-on:change="onStoeckClicked(true)"
+                            ></v-checkbox
+                        ></v-row>
+
+                        <v-row no-gutters
+                            ><v-checkbox
+                                v-model="matsch1"
+                                class="shrink mt-auto mb-auto kulmiInput"
+                                label="Matsch"
+                                v-on:change="onMatschClicked(true)"
+                            ></v-checkbox
+                        ></v-row>
+                    </v-col>
+
+                    <v-col cols="6" class="pt-zero">
+                        <v-row no-gutters>
+                            <v-text-field
+                                v-model="points2"
+                                label="Punkte"
+                                type="number"
+                                class="mt-auto kulmiInput"
+                                v-on:change="onWritePoints(false)"
+                                @focus="$event.target.select()"
+                            ></v-text-field>
+                        </v-row>
+
+                        <v-row no-gutters>
+                            <v-text-field
+                                v-model="wies2"
+                                label="Wies"
+                                type="number"
+                                :rules="wiesRules"
+                                class="mb-auto kulmiInput"
+                                v-on:change="onWriteWies(false)"
+                                @focus="$event.target.select()"
+                            ></v-text-field>
+                        </v-row>
+
+                        <v-row no-gutters
+                            ><v-checkbox
+                                v-model="stoeck2"
+                                label="Stöck"
+                                class="shrink mb-auto kulmiInput"
+                                v-on:change="onStoeckClicked(false)"
+                            ></v-checkbox
+                        ></v-row>
+
+                        <v-row no-gutters
+                            ><v-checkbox
+                                v-model="matsch2"
+                                class="shrink mt-auto mb-auto kulmiInput"
+                                label="Matsch"
+                                v-on:change="onMatschClicked(false)"
+                            ></v-checkbox
+                        ></v-row>
+                    </v-col>
+                </v-row>
+
+                <v-row
+                    class="pt-0 pl-6 pr-3"
+                    cols="12"
+                    justify="space-between"
+                    align="center"
+                    v-if="!showResult"
+                >
+                    {{selectedWithTeams()}}
+                    <v-btn small color="primary" v-on:click="enterRound()"
+                        >Eintragen</v-btn
+                    >
+                    <v-btn small color="error" v-on:click="deleteRound()"
+                        >Löschen</v-btn
+                    >
+                    <v-btn small color="orange" v-on:click="goBack()"
+                        ><v-icon color="white">mdi-arrow-left</v-icon></v-btn
+                    >
+                </v-row>
+                <v-row v-if="!showResult" justify="center"
+                    ><v-btn
+                        small
+                        class="mt-2"
+                        color="success"
+                        v-if="state.rounds.length == 18"
+                        v-on:click="showResult = true"
+                        >Zum Ergebnis</v-btn
+                    ></v-row
+                >
+
+                <v-card raised shaped>
+                    <v-row no-gutters v-if="showResult" class="pt-2">
+                        <v-col cols="6" class="pa-5" no-gutters>
+                            <h4 class="textStart">{{state.team1.player1}}</h4>
+                            <h4 class="textStart">{{state.team1.player2}}</h4>
+                            <p class="textStart pt-1">
+                                Punkte: {{calcResult().points1}}<br />
+                                Wies: {{calcResult().wies1}}<br />
+                                Gesamt: {{calcResult().total1}}
+                            </p>
+                        </v-col>
+                        <v-col cols="6" class="pa-5" no-gutters>
+                            <h4 class="textStart">{{state.team2.player1}}</h4>
+                            <h4 class="textStart">{{state.team2.player2}}</h4>
+                            <p class="textStart pt-1">
+                                Punkte: {{calcResult().points2}}<br />
+                                Wies: {{calcResult().wies2}}<br />
+                                Gesamt: {{calcResult().total2}}
+                            </p>
+                        </v-col>
+                        <v-col cols="12" class="pa-4">
+                            <v-btn
+                                small
+                                class="mt-2"
+                                color="primary"
+                                v-on:click="startNewGame()"
+                                >Revanche</v-btn
+                            >
+                        </v-col>
+                    </v-row>
+                </v-card>
+            </v-container>
+        </v-col>
+    </v-row>
 </v-container>
