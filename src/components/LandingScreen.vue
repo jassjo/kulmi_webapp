@@ -113,6 +113,7 @@ export default {
             if (prevJassId === null) {
                 localStorage.removeItem('currentJass')
                 this.$router.replace({ name: 'home' })
+                return
             }
 
             let prevDetails
@@ -123,6 +124,7 @@ export default {
                 // TODO: what to do in this case?
                 localStorage.removeItem('currentJass')
                 this.$router.replace({ name: 'home' })
+                return
             }
 
             let finished = false
