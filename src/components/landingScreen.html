@@ -1,30 +1,42 @@
 <v-container>
-    <v-layout
-    justify="center"
-    flex
-    wrap
-    fluid
-    >  
-        <v-row no-gutters>
+    <v-layout justify="center" flex wrap fluid>
+        <v-row>
             <v-col cols="12" md="6" no-gutters>
-                    <p></p>
-                    <h3>Team 1:</h3>
-                    <v-text-field label="Name" v-model="player1"></v-text-field>
-                    <v-text-field label="Name" v-model="player2"></v-text-field>
-                    <p></p>
-                    <h3>Team 2:</h3>
-                    <v-text-field label="Name" v-model="player3"></v-text-field>
-                    <v-text-field label="Name" v-model="player4"></v-text-field>
-                    <v-row no-gutters justify="center"><v-btn color="success" class="ms-auto me-auto" v-on:click=startJass()>Starten</v-btn></v-row>
+                <p></p>
+                <h3>Team 1:</h3>
+                <v-text-field label="Name" v-model="player1"></v-text-field>
+                <v-text-field label="Name" v-model="player2"></v-text-field>
+                <p></p>
+                <h3>Team 2:</h3>
+                <v-text-field label="Name" v-model="player3"></v-text-field>
+                <v-text-field label="Name" v-model="player4"></v-text-field>
+                <v-row no-gutters justify="center">
+                    <v-btn
+                        color="success"
+                        class="ms-auto me-auto"
+                        v-on:click="startJass()"
+                    >
+                        Starten
+                    </v-btn>
+                </v-row>
             </v-col>
             <v-col cols="12" md="6" no-gutters>
                 <v-row justify="center">
-                    <v-list shaped subheader minWidth="100px" class="overflow-y-auto landingList">
-                        <v-subheader>Gespeicherte Jässe</v-subheader>
-                        <v-list-item v-for="jass in jaesse" :key="jass" v-on:click=openJass(jass)>
-                            <v-list-item-content>
-                                <v-list-item-title>{{jass}}</v-list-item-title>
-                            </v-list-item-content>
+                    <v-list
+                        shaped
+                        subheader
+                        minWidth="100px"
+                        class="overflow-y-auto landingList"
+                    >
+                        <v-list-subheader>
+                            Gespeicherte Jässe
+                        </v-list-subheader>
+                        <v-list-item
+                            v-for="jass in jaesse"
+                            :key="jass"
+                            v-on:click="openJass(jass)"
+                        >
+                            <v-list-item-title>{{jass}}</v-list-item-title>
                         </v-list-item>
                     </v-list>
                 </v-row>
