@@ -149,7 +149,7 @@ export default {
         if (jassId === null) {
             localStorage.removeItem('currentJass')
             this.$router.replace({ name: 'home' })
-            // TODO: check if execution is aborted here?
+            return
         }
         this.jassId = jassId
 
@@ -162,14 +162,14 @@ export default {
             // manual reconstruction of corrupted data might be necessary
             // localStorage.removeItem(jassId)
             this.$router.replace({ name: 'home' })
-            // TODO: check if execution is aborted here?
+            return
         }
         if (state === null) {
             // to prevent data-loss to not remove this item here,
             // manual reconstruction of corrupted data might be necessary
             // localStorage.removeItem(jassId)
             this.$router.replace({ name: 'home' })
-            // TODO: check if execution is aborted here?
+            return
         }
 
         if (typeof state.rounds === 'undefined') {
