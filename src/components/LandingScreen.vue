@@ -39,6 +39,7 @@ export default {
                     this.player1.slice(0, 2) + this.player2.slice(0, 2)
                 this.sTeam2 =
                     this.player3.slice(0, 2) + this.player4.slice(0, 2)
+                const date = new Date()
                 const newId =
                     this.getDate() + '_' + this.sTeam1 + '_vs_' + this.sTeam2
                 console.log(newId)
@@ -52,7 +53,8 @@ export default {
                     this.player3,
                     this.player4,
                     this.sTeam1,
-                    this.sTeam2
+                    this.sTeam2,
+                    date.toJSON().slice(0, 10)
                 )
 
                 this.$router.push({
@@ -88,7 +90,8 @@ export default {
             player3,
             player4,
             sTeam1,
-            sTeam2
+            sTeam2,
+            date
         ) {
             localStorage.setItem(
                 newId,
@@ -103,6 +106,7 @@ export default {
                         player2: player4,
                         sTeam: sTeam2,
                     },
+                    date: date,
                 })
             )
             localStorage.setItem('currentJass', newId)
@@ -134,6 +138,7 @@ export default {
             } catch {}
 
             if (finished) {
+                const date = this.getDate()
                 const newId =
                     this.getDate() +
                     '_' +
@@ -151,7 +156,8 @@ export default {
                     prevDetails.team2.player1,
                     prevDetails.team2.player2,
                     prevDetails.team1.sTeam,
-                    prevDetails.team2.sTeam
+                    prevDetails.team2.sTeam,
+                    date.toJSON().slice(0, 10)
                 )
                 this.$router.push({
                     name: 'jass',

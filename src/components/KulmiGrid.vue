@@ -145,7 +145,6 @@ export default {
     mounted() {
         const jassId = localStorage.getItem('currentJass')
 
-        console.log(jassId)
         if (jassId === null) {
             localStorage.removeItem('currentJass')
             this.$router.replace({ name: 'home' })
@@ -516,8 +515,8 @@ export default {
                     sumWies2 += this.getWiesTeam2ForLine(color)
                 }
             }
-            console.log(sumWies1)
-            console.log(sumPoints1)
+            // console.log(sumWies1)
+            // console.log(sumPoints1)
             return {
                 points1: sumPoints1,
                 points2: sumPoints2,
@@ -530,6 +529,17 @@ export default {
         startNewGame() {
             this.$router.push({
                 name: 'revanche',
+            })
+        },
+        submitGame() {
+            if (!this.state.result) {
+                this.state = Object.assign(this.state, {
+                    result: this.calcResult(),
+                })
+                this.saveState()
+            }
+            this.$router.push({
+                name: 'eintragen',
             })
         },
     },

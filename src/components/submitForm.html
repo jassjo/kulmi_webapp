@@ -1,0 +1,209 @@
+<v-form>
+    <v-container>
+        <v-row justify="center" align-content="center" align="center" dense>
+            <v-col cols="12" md="12">
+                <h3 class="">Jass eintragen</h3>
+            </v-col>
+
+            <v-col>
+                <v-card raised shaped>
+                    <v-row no-gutters class="pt-2">
+                        <v-col cols="6" class="pa-5" no-gutters>
+                            <h4 class="">{{state.team1.player1}}</h4>
+                            <h4 class="">{{state.team1.player2}}</h4>
+                            <p class="pt-1">
+                                Punkte: {{state.result.points1}}<br />
+                                Wies: {{state.result.wies1}}<br />
+                                Gesamt: {{state.result.total1}}
+                            </p>
+                        </v-col>
+                        <v-col cols="6" class="pa-5" no-gutters>
+                            <h4 class="">{{state.team2.player1}}</h4>
+                            <h4 class="">{{state.team2.player2}}</h4>
+                            <p class="pt-1">
+                                Punkte: {{state.result.points2}}<br />
+                                Wies: {{state.result.wies2}}<br />
+                                Gesamt: {{state.result.total2}}
+                            </p>
+                        </v-col>
+                        <v-col cols="6" class="pl-5 pb-5" no-gutters>
+                            <p class="">
+                                Datum:
+                                {{state.date.slice(8,10)+'.'+state.date.slice(5,7)+'.'+state.date.slice(0,4)}}
+                            </p>
+                        </v-col>
+                    </v-row>
+                </v-card>
+            </v-col>
+
+            <v-col cols="12" md="12" justify="center">
+                <p class="py-2">1. Api Key setzen</p>
+            </v-col>
+            <v-col cols="12" md="12" justify="center">
+                <v-text-field
+                    label="ApiKey"
+                    v-model="apiKey"
+                    hint="Api Key eingeben, um einen fertigen Jass einzutragen"
+                    :append-icon="showApiKey ? 'mdi-eye' : 'mdi-eye-off'"
+                    :type="showApiKey ? 'text' : 'password'"
+                    @click:append="showApiKey = !showApiKey"
+                >
+                </v-text-field>
+            </v-col>
+            <v-col cols="6" md="3" align-self="center">
+                <v-btn
+                    color="success"
+                    class="ms-auto me-auto"
+                    v-on:click="saveApiKey()"
+                >
+                    Api Key speichern
+                </v-btn>
+            </v-col>
+            <v-col cols="6" md="3" align-self="center">
+                <v-btn
+                    color="error"
+                    class="ms-auto me-auto"
+                    v-on:click="deleteApiKey()"
+                >
+                    Api Key löschen
+                </v-btn>
+            </v-col>
+        </v-row>
+        <v-divider thickness="2" class="mt-3 mb-3"></v-divider>
+        <v-row justify="center" align-content="center" align="center" dense>
+            <v-col cols="12" md="12" align-self="center">
+                <p class="py-2">
+                    2. Spieler•innen aus der Datenbank auswählen
+                    ({{player_db_info}})
+                </p></v-col
+            >
+            <v-col cols="12" md="12" align-self="center">
+                <p>
+                    Team 1: {{state.team1.sTeam}} (Punkte:
+                    {{state.result.points1}}, Weis: {{state.result.wies1}},
+                    Gesamt: {{state.result.total1}})
+                </p>
+            </v-col>
+            <v-col cols="6" md="6" align-self="center">
+                <v-autocomplete
+                    :label="state.team1.player1 + ' (Spieler•in 1)'"
+                    v-model="submission.player_id_a_1"
+                    :items="allPlayers"
+                    item-title="name"
+                    item-value="id"
+                ></v-autocomplete>
+            </v-col>
+            <v-col cols="6" md="6" align-self="center">
+                <v-autocomplete
+                    :label="state.team1.player2 + ' (Spieler•in 2)'"
+                    v-model="submission.player_id_a_2"
+                    :items="allPlayers"
+                    item-title="name"
+                    item-value="id"
+                ></v-autocomplete>
+            </v-col>
+            <v-col cols="12" md="12" align-self="center">
+                <p>
+                    Team 2: {{state.team2.sTeam}} (Punkte:
+                    {{state.result.points2}}, Weis: {{state.result.wies2}},
+                    Gesamt: {{state.result.total2}})
+                </p>
+            </v-col>
+            <v-col cols="6" md="6" align-self="center">
+                <v-autocomplete
+                    :label="state.team2.player1+' (Spieler•in 3)'"
+                    v-model="submission.player_id_b_1"
+                    :items="allPlayers"
+                    item-title="name"
+                    item-value="id"
+                ></v-autocomplete>
+            </v-col>
+            <v-col cols="6" md="6" align-self="center">
+                <v-autocomplete
+                    :label="state.team2.player2+' (Spieler•in 4)'"
+                    v-model="submission.player_id_b_2"
+                    :items="allPlayers"
+                    item-title="name"
+                    item-value="id"
+                ></v-autocomplete>
+            </v-col>
+        </v-row>
+        <v-divider thickness="2" class="mt-3 mb-3"></v-divider>
+        <v-row justify="start" align-content="center" align="center" dense>
+            <v-col cols="12" md="12">
+                <p class="py-2">3. Datum auswählen</p>
+            </v-col>
+            <v-col cols="12" md="6" align-self="center">
+                <v-date-input
+                    v-model="date"
+                    prepend-icon=""
+                    prepend-inner-icon="$calendar"
+                    variant="solo"
+                    label="Datum des Jasses"
+                    input-format="dd.mm.yyyy"
+                    :max="new Date().toJSON().slice(0,10)"
+                    min="2026-01-10"
+                ></v-date-input>
+            </v-col>
+        </v-row>
+        <v-divider thickness="2" class="mt-3 mb-3"></v-divider>
+        <v-row justify="start" align-content="center" align="center" dense>
+            <v-col cols="12" md="12">
+                <p class="py-2">4. Kommentar abgeben (optional)</p></v-col
+            >
+            <v-col cols="12" md="6" align-self="center">
+                <v-textarea
+                    v-model="submission.note"
+                    label="Kommentar"
+                    auto-grow
+                    persistent-hint
+                ></v-textarea>
+            </v-col>
+        </v-row>
+        <v-row
+            justify="space-between"
+            align-content="center"
+            align="center"
+            dense
+            class="pb-5"
+        >
+            <v-col cols="9" md="9" align-self="center">
+                <v-btn
+                    :color="submitButtonColor"
+                    :active="loading"
+                    :disabled="loading || state.submittedId > 0"
+                    :loading="loading"
+                    class="ms-auto me-auto"
+                    v-on:click.once="saveJass()"
+                >
+                    {{submitButtonText}}
+                </v-btn>
+            </v-col>
+            <v-col cols="3" md="3" align-self="end">
+                <v-btn
+                    color="error"
+                    class="ms-auto me-auto"
+                    v-on:click="backToResult()"
+                >
+                    Zurück
+                </v-btn>
+            </v-col>
+            <v-col
+                cols="12"
+                md="12"
+                align-self="end"
+                class="pt-5"
+                v-if="showError"
+            >
+                <v-expansion-panels>
+                    <v-expansion-panel
+                        title="Fehler-Details"
+                        :text="errorMessage"
+                        :disabled="!errorMessage"
+                    >
+                    </v-expansion-panel>
+                </v-expansion-panels>
+            </v-col>
+        </v-row>
+    </v-container>
+</v-form>
