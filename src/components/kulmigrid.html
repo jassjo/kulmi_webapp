@@ -174,13 +174,23 @@
                                 Gesamt: {{calcResult().total2}}
                             </p>
                         </v-col>
-                        <v-col cols="12" class="pa-4">
+                        <v-col cols="6" class="pa-4">
                             <v-btn
                                 small
                                 class="mt-2"
                                 color="primary"
                                 v-on:click="startNewGame()"
                                 >Revanche</v-btn
+                            >
+                        </v-col>
+                        <v-col cols="6" class="pa-4">
+                            <v-btn
+                                small
+                                class="mt-2"
+                                color="success"
+                                :disabled="false && Boolean(state.submittedId)"
+                                v-on:click="submitGame()"
+                                >Jass eintragen</v-btn
                             >
                         </v-col>
                     </v-row>
