@@ -20,26 +20,22 @@
                     </v-btn>
                 </v-row>
             </v-col>
-            <v-col cols="12" md="6" no-gutters>
-                <v-row justify="center">
-                    <v-list
-                        shaped
-                        subheader
-                        minWidth="100px"
-                        class="overflow-y-auto landingList"
+            <v-col cols="12" md="6" no-gutters class="">
+                <v-list
+                    shaped
+                    subheader
+                    minWidth="100px"
+                    class="overflow-y-auto landingList"
+                >
+                    <v-list-subheader> Gespeicherte Jässe </v-list-subheader>
+                    <v-list-item
+                        v-for="jass in jaesse"
+                        :key="jass"
+                        v-on:click="openJass(jass)"
                     >
-                        <v-list-subheader>
-                            Gespeicherte Jässe
-                        </v-list-subheader>
-                        <v-list-item
-                            v-for="jass in jaesse"
-                            :key="jass"
-                            v-on:click="openJass(jass)"
-                        >
-                            <v-list-item-title>{{jass}}</v-list-item-title>
-                        </v-list-item>
-                    </v-list>
-                </v-row>
+                        <v-list-item-title>{{jass}}</v-list-item-title>
+                    </v-list-item>
+                </v-list>
             </v-col>
         </v-row>
     </v-layout>
