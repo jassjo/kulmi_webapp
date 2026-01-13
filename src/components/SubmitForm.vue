@@ -111,6 +111,11 @@ export default {
                 this.state.submission.date.substr(0, 2)
         } else {
             // pre-fill form and submission with values derived from jass
+            if (this.state.date == '') {
+                // backwards compatibility, if the date is empty, parse it from the id
+                this.state.date = this.jassId.substr(0, 10)
+                // this.date = Temporal.PlainDate.from(this.state.date)
+            }
             this.date = new Date(this.state.date)
             this.submission.date = this.state.date
             this.submission.points_a = this.state.result.total1
