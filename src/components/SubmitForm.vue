@@ -323,20 +323,38 @@ export default {
                                 console.log(jsonError)
                                 this.errorMessage =
                                     errorMsg + ' - ' + JSON.stringify(jsonError)
+                                console.log(error, jsonError)
+                                if (error.status == 422 && jsonError.data.id) {
+                                    // jass already exists in database
+                                    this.state.submittedId = jsonError.data.id
+                                    this.state.submission = jsonError.data
+                                    localStorage.setItem(
+                                        this.jassId,
+                                        JSON.stringify(this.state)
+                                    )
+                                    console.log(this.state)
+                                    this.submitButtonText =
+                                        'Jass bereits eingetragen (' +
+                                        this.state.submittedId +
+                                        ')'
+                                } else {
+                                    this.showErrorSubmitButton(5000)
+                                }
                             })
                             .catch((genericError) => {
                                 console.log('Generic error from API')
                                 console.log(genericError.statusText)
                                 this.errorMessage =
                                     errorMsg + ' - ' + genericError.statusText
+                                this.showErrorSubmitButton(5000)
                             })
                     } else {
                         console.log('Fetch error')
                         console.log(error)
                         this.errorMessage = errorMsg + ' ' + error
+                        this.showErrorSubmitButton(5000)
                     }
                     this.showError = true
-                    this.showErrorSubmitButton(5000)
                 })
         },
         showErrorSubmitButton(timeout) {
