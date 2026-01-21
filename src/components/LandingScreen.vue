@@ -138,14 +138,13 @@ export default {
             } catch {}
 
             if (finished) {
-                const date = this.getDate()
+                const date = new Date()
                 const newId =
                     this.getDate() +
                     '_' +
                     prevDetails.team1.sTeam +
                     '_vs_' +
                     prevDetails.team2.sTeam
-                console.log(newId)
                 this.jaesse.push(newId)
                 this.jaesse.sort((a, b) => b.localeCompare(a))
                 localStorage.setItem('jaesse', JSON.stringify(this.jaesse))
