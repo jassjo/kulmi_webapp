@@ -57,3 +57,10 @@ th {
 .textStart {
     text-align: start;
 }
+
+#canvas {
+    position: absolute;
+    display: block;
+    image-rendering: pixelated;
+    z-index: -1;
+}
