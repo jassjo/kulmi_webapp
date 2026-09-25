@@ -1,7 +1,7 @@
 <v-container>
     <v-row justify-center text-center wrap fluid align="start">
         <v-col cols="12" md="6">
-            <v-table class="kulmiTable" single-select>
+            <v-table class="kulmiTable" single-select gridlines="all">
                 <thead>
                     <tr>
                         <th></th>
@@ -35,11 +35,11 @@
             </v-table>
         </v-col>
 
-        <v-col cols="12" md="6" class="pt-2">
+        <v-col cols="12" md="6" class="">
             <v-container class="pa-0">
                 <v-row cols="12" class="pt-zero" v-if="!showResult">
                     <v-col cols="6" class="pt-zero">
-                        <v-row no-gutters>
+                        <v-row>
                             <v-text-field
                                 label="Punkte"
                                 type="number"
@@ -50,7 +50,7 @@
                             ></v-text-field>
                         </v-row>
 
-                        <v-row no-gutters>
+                        <v-row>
                             <v-text-field
                                 v-model="wies1"
                                 label="Wies"
@@ -62,7 +62,7 @@
                             ></v-text-field>
                         </v-row>
 
-                        <v-row no-gutters
+                        <v-row
                             ><v-checkbox
                                 v-model="stoeck1"
                                 label="Stöck"
@@ -82,7 +82,7 @@
                     </v-col>
 
                     <v-col cols="6" class="pt-zero">
-                        <v-row no-gutters>
+                        <v-row>
                             <v-text-field
                                 v-model="points2"
                                 label="Punkte"
@@ -93,7 +93,7 @@
                             ></v-text-field>
                         </v-row>
 
-                        <v-row no-gutters>
+                        <v-row>
                             <v-text-field
                                 v-model="wies2"
                                 label="Wies"
@@ -105,7 +105,7 @@
                             ></v-text-field>
                         </v-row>
 
-                        <v-row no-gutters
+                        <v-row
                             ><v-checkbox
                                 v-model="stoeck2"
                                 label="Stöck"
@@ -126,7 +126,7 @@
                 </v-row>
 
                 <v-row
-                    class="pt-0 pl-6 pr-3"
+                    class="pt-0 pl-3 pr-3"
                     cols="12"
                     justify="space-between"
                     align="center"
