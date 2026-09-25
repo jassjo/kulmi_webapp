@@ -68,6 +68,7 @@
                                 label="Stöck"
                                 class="shrink mb-auto kulmiInput"
                                 v-on:change="onStoeckClicked(true)"
+                                v-if="showStoeck()"
                             ></v-checkbox
                         ></v-row>
 
@@ -111,6 +112,7 @@
                                 label="Stöck"
                                 class="shrink mb-auto kulmiInput"
                                 v-on:change="onStoeckClicked(false)"
+                                v-if="showStoeck()"
                             ></v-checkbox
                         ></v-row>
 

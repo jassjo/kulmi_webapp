@@ -492,6 +492,10 @@ export default {
             }
             this.saveState()
         },
+        showStoeck() {
+            let hideWhen = ['G', 'B', 'K'];
+            return ! hideWhen.includes(this.selected.slice(0, 1));
+        },
         selectedWithTeams() {
             if (this.selected.slice(1) == 1)
                 return this.selected.slice(0, 1) + ' ' + this.state.team1.sTeam
