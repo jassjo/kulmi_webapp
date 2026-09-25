@@ -7,10 +7,14 @@
 }
 
 .kulmiTable {
-    text-align: center;
+    text-align: right;
     border-color: lightgray;
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
+}
+
+.kulmiTable tr > td:nth-of-type(n+1) {
+    font-family: monospace;
 }
 
 @media screen and (max-width: 540px) {
