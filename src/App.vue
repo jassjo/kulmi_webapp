@@ -57,6 +57,7 @@ export default {
             cwidthhalf: null,
 			cheighthalf: null,
             animate: false,
+            indices: []
         }
     }),
     mounted() {
@@ -100,6 +101,18 @@ export default {
 			canvas.height = window.innerHeight * this.cardInfo.dpr;
             canvas.style.zIndex = -1;
             this.cardInfo.canvas = canvas;
+        },
+        refillIndices(){
+            this.cardInfo.indices = [...Array(36).keys()];
+            let currentIndex =  this.cardInfo.indices.length;
+
+            // https://bost.ocks.org/mike/shuffle/
+            while (currentIndex != 0) {
+                let randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+                [this.cardInfo.indices[currentIndex],  this.cardInfo.indices[randomIndex]] = [
+                 this.cardInfo.indices[randomIndex],  this.cardInfo.indices[currentIndex]];
+            }
         },
         throwRandomCards()
         {
@@ -163,7 +176,13 @@ export default {
 
         // inital throw
         this.cardInfo.canvas.style.zIndex = 1000;
-        let id = Math.floor(Math.random() * 36)
+
+        if(this.cardInfo.indices.length == 0)
+        {
+            this.refillIndices();
+        }
+       
+        let id = this.cardInfo.indices.shift()
 
         var particle = new Particle( id, x, y, 
         Math.floor( Math.random() * 6 - 3 ) * 2, 
