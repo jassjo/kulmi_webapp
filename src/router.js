@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import KulmiGrid from './components/KulmiGrid.vue'
-import LandingScreen from './components/LandingScreen.vue'
-import SubmitForm from './components/SubmitForm.vue'
+const KulmiGrid = () => import('./components/KulmiGrid.vue');
+const LandingScreen = () => import('./components/LandingScreen.vue');
+const SubmitForm = () => import( './components/SubmitForm.vue');
 
 const routes = [
     { path: '/', name: 'home', component: LandingScreen },
