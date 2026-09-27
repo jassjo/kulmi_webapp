@@ -111,6 +111,13 @@ export default {
                 this.state.submission.date.substr(0, 2)
         } else {
             // pre-fill form and submission with values derived from jass
+
+            // if jass is a revanche we can prefill the user ids from the previous submission
+            if(this.state.submission)
+            {
+                this.submission = this.state.submission
+            }
+
             if (this.state.date == '') {
                 // backwards compatibility, if the date is empty, parse it from the id
                 this.state.date = this.jassId.substr(0, 10)
@@ -121,7 +128,7 @@ export default {
             this.submission.points_a = this.state.result.total1
             this.submission.points_b = this.state.result.total2
             this.submission.weis_a = this.state.result.wies1
-            this.submission.weis_b = this.state.result.wies2
+            this.submission.weis_b = this.state.result.wies2  
         }
 
         if (!this.state.submittedId) {
@@ -141,7 +148,7 @@ export default {
     methods: {
         backToResult() {
             this.$router.push({
-                name: 'jass',
+                name: 'jass'
             })
         },
         saveApiKey() {
