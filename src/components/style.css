@@ -11,10 +11,28 @@
     border-color: lightgray;
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
+    font-size: 16px;
 }
 
-.kulmiTable tr > td:nth-of-type(n+1) {
-    font-family: monospace;
+.kulmiTable tr > td:nth-of-type(n+2) {
+    font-family:"Roboto Mono", monospace;
+    text-align: right;
+}
+
+.kulmiTable tr > td:nth-of-type(n + 4) {
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:clip;
+    direction: rtl;
+}
+
+.kulmiTable tr > td:first-of-type {
+    text-align: center;
+    width: 1%;
+}
+
+.kulmiTab {
+    max-width: calc(5ch + 32px);
 }
 
 @media screen and (max-width: 540px) {

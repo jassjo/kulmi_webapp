@@ -37,8 +37,6 @@
 </template>
 
 <script>
-import { VTabsWindow } from 'vuetify/components';
-
 export default {
     name: 'App',
     data: () => ({
@@ -70,7 +68,7 @@ export default {
         
         this.clearCanvas();
         
-        this.cardInfo.context = canvas.getContext( '2d' );
+        this.cardInfo.context = this.cardInfo.canvas.getContext( '2d' );
 
         this.cardInfo.id = 35;
 

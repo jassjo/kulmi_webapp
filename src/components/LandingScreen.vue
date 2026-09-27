@@ -135,7 +135,9 @@ export default {
 
             try {
                 finished = prevDetails.rounds && prevDetails.rounds.length == 18
-            } catch {}
+            } catch {
+                // continue regardless of error
+            }
 
             if (finished) {
                 const date = new Date()
