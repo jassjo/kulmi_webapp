@@ -150,6 +150,24 @@ export default {
                 this.jaesse.push(newId)
                 this.jaesse.sort((a, b) => b.localeCompare(a))
                 localStorage.setItem('jaesse', JSON.stringify(this.jaesse))
+
+                var submission= {};
+
+                if(Number.isInteger(prevDetails.submittedId))
+                {
+                    submission = {
+                        player_id_a_1: prevDetails.submission.player_id_a_1,
+                        player_id_a_2: prevDetails.submission.player_id_a_2,
+                        player_id_b_1: prevDetails.submission.player_id_b_1,
+                        player_id_b_2: prevDetails.submission.player_id_b_2,
+                    }
+
+                    if(prevDetails.submission.note)
+                    {
+                        submission.note = prevDetails.submission.note
+                    }
+                }
+                
                 this.createNewJass(
                     newId,
                     prevDetails.team1.player1,
