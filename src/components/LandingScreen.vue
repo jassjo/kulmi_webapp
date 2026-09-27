@@ -67,13 +67,13 @@ export default {
             const dateString =
                 date.getFullYear() +
                 '-' +
-                (date.getMonth() + 1) +
+                `${(date.getMonth() + 1)}`.padStart(2, '0') +
                 '-' +
-                date.getDate() +
+                `${date.getDate()}`.padStart(2, '0') +
                 '_' +
-                date.getHours() +
+                `${date.getHours()}`.padStart(2, '0') +
                 ':' +
-                date.getMinutes()
+                `${date.getMinutes()}`.padStart(2, '0')
             return dateString
         },
         openJass(jass) {
@@ -91,7 +91,8 @@ export default {
             player4,
             sTeam1,
             sTeam2,
-            date
+            date,
+            submission = {}
         ) {
             localStorage.setItem(
                 newId,
@@ -107,6 +108,7 @@ export default {
                         sTeam: sTeam2,
                     },
                     date: date,
+                    submission: submission
                 })
             )
             localStorage.setItem('currentJass', newId)
@@ -176,7 +178,8 @@ export default {
                     prevDetails.team2.player2,
                     prevDetails.team1.sTeam,
                     prevDetails.team2.sTeam,
-                    date.toJSON().slice(0, 10)
+                    date.toJSON().slice(0, 10),
+                    submission
                 )
                 this.$router.push({
                     name: 'jass',
