@@ -60,6 +60,9 @@
     .landingList {
         max-height: 450px;
     }
+    .v-list {
+        max-height: 422px;
+    }
 }
 
 .v-text-field .v-input__control .v-input__slot {
@@ -67,6 +70,10 @@
     display: flex !important;
     align-items: center !important;
     height: 40px;
+}
+
+.v-list {
+    margin-bottom: 20px;
 }
 
 .marked {

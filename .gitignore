@@ -21,6 +21,9 @@ pnpm-debug.log*
 *.sln
 *.sw?
 
+*.png
+*.xcf
+
 package-lock.json
 
 .node_version

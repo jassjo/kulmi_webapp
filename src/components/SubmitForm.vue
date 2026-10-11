@@ -1,7 +1,6 @@
 <template src="./submitForm.html"></template>
 <script>
 export default {
-    // TODO: also preserve form input before submission (e.g. user navigates away and comes back later)
     // TODO: use validation rules for form inputs
     // TODO: add loading animation when fetching players
     // TODO: add interface to create new player
@@ -80,14 +79,14 @@ export default {
         try {
             state = JSON.parse(localStorage.getItem(jassId))
         } catch {
-            // to prevent data-loss to not remove this item here,
+            // to prevent data-loss do not remove this item here,
             // manual reconstruction of corrupted data might be necessary
             // localStorage.removeItem(jassId)
             this.$router.replace({ name: 'home' })
             return
         }
         if (state === null) {
-            // to prevent data-loss to not remove this item here,
+            // to prevent data-loss do not remove this item here,
             // manual reconstruction of corrupted data might be necessary
             // localStorage.removeItem(jassId)
             this.$router.replace({ name: 'home' })
@@ -109,13 +108,55 @@ export default {
                 this.state.submission.date.substr(3, 2) +
                 '-' +
                 this.state.submission.date.substr(0, 2)
-        } else {
+        }
+        else {
             // pre-fill form and submission with values derived from jass
 
             // if jass is a revanche we can prefill the user ids from the previous submission
-            if(this.state.submission)
+            if(this.state.submission && Object.keys(this.state.submission).length !== 0)
             {
-                this.submission = this.state.submission
+                this.submission = this.state.submission 
+                this.state.date =
+                this.state.submission.date.substr(6, 4) +
+                '-' +
+                this.state.submission.date.substr(3, 2) +
+                '-' +
+                this.state.submission.date.substr(0, 2)  
+            }
+            else if(this.state.clonedFrom && this.state.clonedFrom.length !== 0)
+            {
+                let prevDetails
+              
+                try {
+                    prevDetails = JSON.parse(localStorage.getItem(this.state.clonedFrom))
+                } catch {
+                      // continue regardless of error
+                }
+
+                if(prevDetails)
+                {
+                    let finished = false
+
+                    try {
+                        finished = prevDetails.rounds && prevDetails.rounds.length == 18
+                    } catch {
+                        // continue regardless of error
+                    }
+
+                    if (finished) {
+                        this.submission = {
+                            player_id_a_1: prevDetails.submission.player_id_a_1,
+                            player_id_a_2: prevDetails.submission.player_id_a_2,
+                            player_id_b_1: prevDetails.submission.player_id_b_1,
+                            player_id_b_2: prevDetails.submission.player_id_b_2,
+                        }
+
+                        if(prevDetails.submission.note)
+                        {
+                            this.submission.note = prevDetails.submission.note
+                        }
+                    }
+                }
             }
 
             if (this.state.date == '') {
@@ -123,7 +164,11 @@ export default {
                 this.state.date = this.jassId.substr(0, 10)
                 // this.date = Temporal.PlainDate.from(this.state.date)
             }
-            this.date = new Date(this.state.date)
+            if(this.date == '')
+            {
+                this.date = new Date(this.state.date)
+            }
+           
             this.submission.date = this.state.date
             this.submission.points_a = this.state.result.total1
             this.submission.points_b = this.state.result.total2
@@ -147,6 +192,18 @@ export default {
     },
     methods: {
         backToResult() {
+            // preserve form input before submission (e.g. user navigates away and comes back later)
+            if(!this.state.submittedId)
+            {
+                this.state.submission = this.submission
+                this.state.submission.date = 
+                ("0" + this.date.getDate()).slice(-2) + "-" + 
+                ("0" + (this.date.getMonth()+1)).slice(-2) + "-" +
+                this.date.getFullYear();
+
+                localStorage.setItem(this.jassId, JSON.stringify(this.state))
+            }
+
             this.$router.push({
                 name: 'jass'
             })
@@ -276,13 +333,10 @@ export default {
             const url = import.meta.env.VITE_API_URL_JASS
 
             // TODO: improve date handling all over the place
-            this.submission.date = this.date.toJSON().slice(0, 10)
-            this.submission.date =
-                this.submission.date.substr(8, 2) +
-                '-' +
-                this.submission.date.substr(5, 2) +
-                '-' +
-                this.submission.date.substr(0, 4)
+            this.submission.date = 
+                ("0" + this.date.getDate()).slice(-2) + "-" + 
+                ("0" + (this.date.getMonth()+1)).slice(-2) + "-" +
+                this.date.getFullYear();
 
             fetch(url, {
                 method: 'POST',

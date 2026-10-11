@@ -22,7 +22,7 @@
                 size="medium"
                 class="pr-3"
             >
-                <router-link tag="div" to="/">
+                <router-link to="/">
                     <v-icon> mdi-home </v-icon>
                 </router-link>
             </v-app-bar-nav-icon>

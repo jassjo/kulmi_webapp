@@ -36,6 +36,16 @@
                         <v-list-item-title>{{jass}}</v-list-item-title>
                     </v-list-item>
                 </v-list>
+                <v-row no-gutters justify="center">
+                <v-btn
+                    color="error"
+                    class="ms-auto me-auto"
+                    v-on:click="exportLocalStorage()"
+                >
+                    <v-icon> mdi-download </v-icon>
+                    Jässe exportieren
+                    </v-btn>
+                </v-row>
             </v-col>
         </v-row>
     </v-layout>

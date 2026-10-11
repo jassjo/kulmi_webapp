@@ -532,7 +532,7 @@ export default {
         },
         startNewGame() {
             this.$router.push({
-                name: 'revanche',
+                name: 'revanche'
             })
         },
         submitGame() {

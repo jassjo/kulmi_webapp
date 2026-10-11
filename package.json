@@ -1,6 +1,6 @@
 {
     "name": "kulmi",
-    "version": "2.1.7",
+    "version": "2.2.0",
     "private": true,
     "type": "module",
     "scripts": {
@@ -11,6 +11,7 @@
     },
     "dependencies": {
         "@fontsource/roboto": "^5.2.9",
+        "downloadjs": "^1.4.7",
         "vue": "^3.5.26",
         "vue-router": "^5.3.1",
         "vuetify": "^4.2.2"

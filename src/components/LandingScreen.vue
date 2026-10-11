@@ -42,7 +42,7 @@ export default {
                 const date = new Date()
                 const newId =
                     this.getDate() + '_' + this.sTeam1 + '_vs_' + this.sTeam2
-                console.log(newId)
+                // console.log(newId)
                 this.jaesse.push(newId)
                 this.jaesse.sort((a, b) => b.localeCompare(a))
                 localStorage.setItem('jaesse', JSON.stringify(this.jaesse))
@@ -54,7 +54,9 @@ export default {
                     this.player4,
                     this.sTeam1,
                     this.sTeam2,
-                    date.toJSON().slice(0, 10)
+                    ("0" + date.getDate()).slice(-2) + "-" +
+                    ("0" + (date.getMonth() + 1)).slice(-2) + "-" +
+                    date.getFullYear(),
                 )
 
                 this.$router.push({
@@ -92,6 +94,7 @@ export default {
             sTeam1,
             sTeam2,
             date,
+            clonedFrom = null,
             submission = {}
         ) {
             localStorage.setItem(
@@ -108,7 +111,8 @@ export default {
                         sTeam: sTeam2,
                     },
                     date: date,
-                    submission: submission
+                    submission: submission,
+                    clonedFrom: clonedFrom,
                 })
             )
             localStorage.setItem('currentJass', newId)
@@ -153,10 +157,9 @@ export default {
                 this.jaesse.sort((a, b) => b.localeCompare(a))
                 localStorage.setItem('jaesse', JSON.stringify(this.jaesse))
 
-                var submission= {};
+                var submission = {};
 
-                if(Number.isInteger(prevDetails.submittedId))
-                {
+                if (Number.isInteger(prevDetails.submittedId)) {
                     submission = {
                         player_id_a_1: prevDetails.submission.player_id_a_1,
                         player_id_a_2: prevDetails.submission.player_id_a_2,
@@ -164,12 +167,11 @@ export default {
                         player_id_b_2: prevDetails.submission.player_id_b_2,
                     }
 
-                    if(prevDetails.submission.note)
-                    {
+                    if (prevDetails.submission.note) {
                         submission.note = prevDetails.submission.note
                     }
                 }
-                
+
                 this.createNewJass(
                     newId,
                     prevDetails.team1.player1,
@@ -178,7 +180,10 @@ export default {
                     prevDetails.team2.player2,
                     prevDetails.team1.sTeam,
                     prevDetails.team2.sTeam,
-                    date.toJSON().slice(0, 10),
+                    ("0" + date.getDate()).slice(-2) + "-" +
+                    ("0" + (date.getMonth() + 1)).slice(-2) + "-" +
+                    date.getFullYear(),
+                    prevJassId,
                     submission
                 )
                 this.$router.push({
@@ -188,6 +193,46 @@ export default {
                 this.$router.replace({ name: 'home' })
             }
         },
+        exportLocalStorage() {
+            const storedKeys = localStorage.getItem('jaesse')
+            if (storedKeys) {
+                try {
+                    const jaesse = JSON.parse(localStorage.getItem('jaesse'))
+                    let toExport = {};
+                    if (jaesse) {
+                        for (const jassId of jaesse) {
+                            try {
+                                let jassDetails = JSON.parse(localStorage.getItem(jassId))
+                                toExport[jassId] = jassDetails
+                            } catch {
+                                // do nothing
+                            }
+                        }
+                        try {
+                            import('downloadjs').then((module) => {
+                                const date = new Date()
+                                module.default(JSON.stringify(toExport, null, 4),
+                                    "jass_export_" +
+                                    date.getFullYear() +
+                                    + ("0" + (date.getMonth() + 1)).slice(-2)
+                                    + ("0" + date.getDate()).slice(-2) + "_" +
+                                    date.getHours() + date.getMinutes() +
+                                    date.getSeconds() +
+                                    ".json", "text/plain");
+                            })
+                        }
+                        catch (error) {
+                            console.log('Error on export.')
+                            throw error;
+                        }
+                    }
+                }
+                catch {
+                    // nothing to export
+                    return;
+                }
+            }
+        }
     },
 }
 </script>
